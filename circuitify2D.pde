@@ -1,6 +1,6 @@
 Grid myGrid = new Grid();
-int rows = 50;
-int cols = 50;
+int rows = 250;
+int cols = 250;
 int imageHeight = 1000;
 int imageWidth = 1000;
 int offset = imageHeight / cols;
@@ -16,13 +16,13 @@ void setup() {
     myGrid.findAllNeighbors();
     
     //find random point as starting point
-    Point start = myGrid.my2D[5][5];
+    Point start = myGrid.my2D[50][50];
     start.displayMe();
     start.visited = true;
     unvisited--;
     unvisited = myGrid.search(start, unvisited);
     while (unvisited>0) {
-        Point next = myGrid.my2D[int(random(50))][int(random(50))];
+        Point next = myGrid.my2D[int(random(cols))][int(random(rows))];
         unvisited--;
         myGrid.search(next, unvisited);
     }

@@ -1,7 +1,7 @@
 class Grid {
   ArrayList<Point> allPoints = new ArrayList<Point>();
   ArrayList<Point> potentialPoints = new ArrayList<Point>();
-  Point[][] my2D = new Point[50][50];
+  Point[][] my2D = new Point[250][250];
 
   Point current;
 
@@ -23,7 +23,7 @@ class Grid {
       Point curr = allPoints.get(x); 
       for (int y = 0; y < allPoints.size(); y++) {
         Point potential = allPoints.get(y);
-        if (y!=x && dist(curr.px, curr.py, potential.px, potential.py) < 50) {
+        if (y!=x && dist(curr.px, curr.py, potential.px, potential.py) < 250) {
           curr.neighbors.add(potential);
         }
       }
@@ -57,8 +57,8 @@ class Grid {
     if ((colNum < 0) || (rowNum <0) ) {
       return false;    //false if row or col are negative
     }
-    if ((colNum >= 50) || (rowNum >= 50)) {
-      return false;    //false if row or col are > 50
+    if ((colNum >= 250) || (rowNum >= 250)) {
+      return false;    //false if row or col are > 250
     }
     return true;
   }
