@@ -1,5 +1,4 @@
 class Grid {
-  ArrayList<Point> allPoints = new ArrayList<Point>();
   ArrayList<Point> potentialPoints = new ArrayList<Point>();
   Point[][] my2D = new Point[250][250];
 
@@ -14,23 +13,10 @@ class Grid {
     for (int x = 0; x < cols; x++) {
       for (int y = 0; y < rows; y++) {
         my2D[x][y] = new Point(x*offset, y*offset, 0);
-        //my2D[x][y].displayMe();
-        allPoints.add(my2D[x][y]);
+        //my2D[x][y].displayMe
       }
     }
-  }
-
-  void findAllNeighbors2() {
-    for (int x = 0; x < allPoints.size(); x++) {
-      Point curr = allPoints.get(x); 
-      for (int y = 0; y < allPoints.size(); y++) {
-        Point potential = allPoints.get(y);
-        if (y!=x && dist(curr.px, curr.py, potential.px, potential.py) < 250) {
-          curr.neighbors.add(potential);
-        }
-      }
-    }
-  }   
+  }  
 
   void findAllNeighbors() {
     for (int x = 0; x < cols; x++) {
@@ -66,7 +52,7 @@ class Grid {
   }
 
 
-  int search(Point curr, int unvisited_) {
+  int search(Point curr, int unvisited_, int strokeWei) {
     
     // find potential unvisited opposites 
     for (int x = 0; x < curr.neighbors.size(); x++) {
@@ -97,14 +83,14 @@ class Grid {
         // randomly choose the point to form an edge with
         opp = potentialPoints.get(int(random(0, potentialPoints.size())));
       }
-      stroke(255,255,255);
-      strokeWeight(1);
+      stroke(255-100/strokeWei,255-100/strokeWei,255-100/strokeWei);
+      strokeWeight(strokeWei);
       line(curr.px, curr.py, opp.px, opp.py); 
       opp.visited = true;
       opp.lastDir = checkDir(curr, opp);
       unvisited_--;
       potentialPoints.clear();
-      return search(opp, unvisited_);
+      return search(opp, unvisited_, strokeWei);
       
     }
   }
