@@ -4,6 +4,7 @@ class Point {
   int gridCol;
   int gridRow;
   int edges;
+  int lastDir;
   
   Point opposite;
   

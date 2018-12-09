@@ -4,6 +4,8 @@ class Grid {
   Point[][] my2D = new Point[250][250];
 
   Point current;
+  Point sameDir;
+  Point opp;
 
   Grid() {
   }
@@ -79,16 +81,63 @@ class Grid {
        
       
     } else {
-    
-      Point opp = potentialPoints.get(int(random(0, potentialPoints.size())));
+      
+      // parallel lines: high chance that next edge has same dir as previous edge
+      for (int x = 0; x < potentialPoints.size(); x++) {
+          if (checkDir(curr, potentialPoints.get(x)) == curr.lastDir) {
+              sameDir = potentialPoints.get(x);
+              break;
+          }
+        
+      }
+      
+      if (sameDir != null && int(random(10)) > 1) {
+          opp = sameDir;
+      } else {
+        // randomly choose the point to form an edge with
+        opp = potentialPoints.get(int(random(0, potentialPoints.size())));
+      }
       stroke(255,255,255);
       strokeWeight(1);
       line(curr.px, curr.py, opp.px, opp.py); 
       opp.visited = true;
+      opp.lastDir = checkDir(curr, opp);
       unvisited_--;
       potentialPoints.clear();
       return search(opp, unvisited_);
+      
     }
+  }
+  
+  private int checkDir(Point p1, Point p2) {
+     int dir = 0;
+     if (p1.px - 1 == p2.px && p1.py - 1 == p2.py) {
+       dir = 1;
+     }
+     if (p1.px == p2.px && p1.py - 1 == p2.py) {
+       dir = 2;
+     }
+     if (p1.px + 1 == p2.px && p1.py - 1 == p2.py) {
+       dir = 3;
+     }
+     if (p1.px - 1 == p2.px && p1.py == p2.py) {
+       dir = 4;
+     }
+     if (p1.px + 1 == p2.px && p1.py == p2.py) {
+       dir = 6;
+     }
+     if (p1.px - 1 == p2.px && p1.py + 1 == p2.py) {
+       dir = 7;
+     }
+     if (p1.px == p2.px && p1.py + 1 == p2.py) {
+       dir = 8;
+     }
+     if (p1.px + 1 == p2.px && p1.py + 1 == p2.py) {
+       dir = 9;
+     }
+     
+     return dir;
+    
   }
 
 }
