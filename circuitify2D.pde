@@ -1,3 +1,5 @@
+import peasy.*;
+
 Grid myGrid = new Grid();
 int rows = 250;
 int cols = 250;
@@ -6,16 +8,19 @@ int imageWidth = 1000;
 int offset = imageHeight / cols;
 PImage picture;
 int unvisited = rows*cols;
-int saveCount = 0;
 int strokeWei = 1;
+PeasyCam camera;
 
 void setup() {
     //picture = loadImage("moun.jpg"); 
-    size(1000, 1000);
+    size(1000, 1000, P3D);
     background(0);
     //image(picture, 0, 0);
     myGrid.createAll();
     myGrid.findAllNeighbors();
+    
+    //camera = new PeasyCam(this, 0, 0, 0, 50);
+
     
     //find random point as starting point
     Point start = myGrid.my2D[50][50];
@@ -44,6 +49,5 @@ void setup() {
         
         myGrid.search(next, unvisited, strokeWei);
     }
-    save("jpgs/"+saveCount+".jpg");
-    saveCount++;
+    save("jpgs/temp.jpg");
 }
